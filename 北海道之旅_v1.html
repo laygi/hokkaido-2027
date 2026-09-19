@@ -134,12 +134,26 @@
     background:var(--panel);
     border-right:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);
     padding:22px 24px 24px;
+    min-width:0;
   }
   .card .ctitle{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:2px;}
   .card h3{font-size:22px;}
   .card .jp{font-size:12px;color:var(--ink-soft);margin:2px 0 10px;}
   .hearts{display:inline-flex;gap:2px;white-space:nowrap;flex-shrink:0;color:var(--ink);}
   .hearts svg{width:13px;height:13px;}
+  .card-photos{margin:12px 0;max-width:100%;min-width:0;position:relative;}
+  .card-photos-row{display:flex;gap:4px;overflow-x:auto;scroll-behavior:smooth;min-width:0;}
+  .card-photos-row img{height:190px;width:auto;max-width:none;flex-shrink:0;display:block;background:var(--panel-alt);}
+  .card-photos figcaption{font-size:10.5px;color:var(--ink-soft);margin-top:4px;}
+  .photo-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:26px;height:26px;border-radius:50%;border:none;
+    background:rgba(20,27,35,0.55);color:#fff;font-size:15px;line-height:1;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;
+  }
+  .photo-nav:hover{background:rgba(20,27,35,0.82);}
+  .photo-nav.prev{left:6px;}
+  .photo-nav.next{right:6px;}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
   .tags span{font-size:10px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line-strong);padding:3px 8px;color:var(--ink-soft);}
   .card p.about{font-size:13px;line-height:1.75;margin:0 0 14px;color:var(--ink);}
@@ -195,9 +209,29 @@
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
     font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
   }
+
+  /* ---------- photo lightbox ---------- */
+  .card-photos-row img{cursor:zoom-in;}
+  .lightbox{
+    position:fixed;inset:0;background:rgba(20,27,35,0.92);
+    display:none;align-items:center;justify-content:center;z-index:100;
+    padding:32px;cursor:zoom-out;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:92vw;max-height:88vh;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,.5);}
+  .lightbox-close{
+    position:absolute;top:18px;right:24px;color:#fff;font-family:'Archivo',sans-serif;
+    font-size:14px;letter-spacing:.08em;text-transform:uppercase;background:none;border:none;cursor:pointer;
+    padding:8px;
+  }
 </style>
 </head>
 <body>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕ 關閉</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
 
 <header class="masthead">
   <div class="m-row1">
@@ -301,6 +335,14 @@
           <div><h3>札幌國際 Sapporo Kokusai</h3><div class="jp">札幌国際スキー場</div></div>
           <div class="hearts"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg></div>
         </div>
+        <div class="card-photos">
+          <div class="card-photos-row">
+            <img src="照片/札幌國際/山頂看海景.jpg" alt="札幌國際滑雪場山頂雪道遠眺海景" loading="lazy">
+            <img src="照片/札幌國際/纜車站小屋.jpg" alt="札幌國際滑雪場纜車站小屋與雪道" loading="lazy">
+            <img src="照片/札幌國際/入口鐘塔.jpg" alt="札幌國際滑雪場入口木造鐘塔" loading="lazy">
+          </div>
+          <figcaption>網路參考照片，非本人拍攝</figcaption>
+        </div>
         <div class="tags"><span>新手長雪道</span><span>單板 OK</span><span>札幌日歸</span></div>
         <p class="about">最適合當北海道第一個正式滑雪日。Forest 1.2km 與 Märchen 2.4km 都是初級道，平均坡度 8°；可串成最長約 3.6km 的長距離滑行。對「已經會煞車、落葉飄／基本轉彎，想把時間拿來玩」特別合適。</p>
         <dl class="meta">
@@ -317,6 +359,14 @@
         <div class="ctitle">
           <div><h3>朝里川溫泉 Asarigawa Onsen</h3><div class="jp">朝里川温泉スキー場</div></div>
           <div class="hearts"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" style="opacity:.32"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg></div>
+        </div>
+        <div class="card-photos">
+          <div class="card-photos-row">
+            <img src="照片/朝里川溫泉/纜車海景.jpg" alt="朝里川溫泉滑雪場纜車與海景" loading="lazy">
+            <img src="照片/朝里川溫泉/滑雪道遠眺小樽市區.jpg" alt="朝里川溫泉滑雪場雪道遠眺小樽市區與海景" loading="lazy">
+            <img src="照片/朝里川溫泉/山間木屋.jpg" alt="朝里川溫泉滑雪場山間木屋" loading="lazy">
+          </div>
+          <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
         <div class="tags"><span>CP 值最高</span><span>天然溫泉</span><span>小樽順路</span></div>
         <p class="about">小樽近郊、小樽唯一的溫泉區，滑雪場緊鄰朝里川溫泉鄉；9 條雪道，部分雪道能看到海景。規模不如札幌國際或 Kiroro，但地緣優勢是能把「小樽逛街＋天然溫泉＋滑雪」串成一條線，一趟解決兩件事。</p>
@@ -341,6 +391,15 @@
           <div><h3>札幌手稻 Sapporo Teine</h3><div class="jp">サッポロテイネ</div></div>
           <div class="hearts"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" style="opacity:.32"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg></div>
         </div>
+        <div class="card-photos">
+          <div class="card-photos-row">
+            <img src="照片/手稻/纜車上看雪道.jpg" alt="手稻滑雪場纜車上看雪道與晴空" loading="lazy">
+            <img src="照片/手稻/摩天輪雪坡.jpg" alt="手稻滑雪場雪坡與遠處摩天輪" loading="lazy">
+            <img src="照片/手稻/山屋雪道.jpg" alt="手稻滑雪場山屋與雪道" loading="lazy">
+            <img src="照片/手稻/纜車遠眺市區.jpg" alt="手稻滑雪場纜車遠眺札幌市區" loading="lazy">
+          </div>
+          <figcaption>網路參考照片，非本人拍攝</figcaption>
+        </div>
         <div class="tags"><span>Olympia 新手區</span><span>景色好</span><span>可接 AEON 購物</span></div>
         <p class="about">很適合第二個滑雪日。Olympia Zone 有較緩的初級坡；Highland 則能在之後能力變強時繼續玩。官方單板 Level 3 的定義就是能在簡單雪道 heel↔toe 連續轉彎，剛好可以拿台灣學習成果來判斷是否合適。</p>
         <dl class="meta">
@@ -357,6 +416,14 @@
           <div><h3>札幌藤野 Fu's Snow Area</h3><div class="jp">フッズスノーエリア</div></div>
           <div class="hearts"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" style="opacity:.32"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg></div>
         </div>
+        <div class="card-photos">
+          <div class="card-photos-row">
+            <img src="照片/藤野/滑雪道全景.jpg" alt="藤野滑雪場雪道全景與晴空" loading="lazy">
+            <img src="照片/藤野/纜車眺望雪坡.jpg" alt="藤野滑雪場纜車眺望雪坡" loading="lazy">
+            <img src="照片/藤野/遠眺市區.jpg" alt="藤野滑雪場遠眺札幌近郊市區與群山" loading="lazy">
+          </div>
+          <figcaption>網路參考照片，非本人拍攝</figcaption>
+        </div>
         <div class="tags"><span>Local</span><span>觀光客較少</span><span>價格親民</span></div>
         <p class="about">如果你最在意「不要滿滿觀光客」，Fu's 很值得留著。札幌官方把它形容為當地人的私房雪場，距市中心開車約 30 分；Family Course 為初級 500m，Mild Course 為初／中級 1.8km。</p>
         <dl class="meta">
@@ -372,6 +439,13 @@
         <div class="ctitle">
           <div><h3>札幌盤溪 Sapporo Bankei</h3><div class="jp">さっぽろばんけい</div></div>
           <div class="hearts"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" style="opacity:.32"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" style="opacity:.32"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg></div>
+        </div>
+        <div class="card-photos">
+          <div class="card-photos-row">
+            <img src="照片/盤溪/纜車雪道.jpg" alt="盤溪滑雪場纜車與雪道" loading="lazy">
+            <img src="照片/盤溪/山莊人潮.jpg" alt="盤溪滑雪場山莊與滑雪人潮" loading="lazy">
+          </div>
+          <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
         <div class="tags"><span>市區超近</span><span>半日滑</span><span>夜滑</span></div>
         <p class="about">優勢不是「最漂亮的大雪場」，而是超級方便。從札幌站開車官方估約 20 分鐘，也有市區巴士；札幌觀光官方明確提到有適合家庭與初學者的緩坡。很適合購物日切半天滑一下。</p>
@@ -395,8 +469,46 @@
         <div class="ctitle">
           <div><h3>喜樂樂 Kiroro Snow World</h3><div class="jp">キロロリゾート</div></div>
         </div>
+        <div class="card-photos">
+          <div class="card-photos-row">
+            <img src="照片/喜樂樂/度假村建築群.jpg" alt="喜樂樂度假村建築群與雪道" loading="lazy">
+          </div>
+          <figcaption>網路參考照片，非本人拍攝</figcaption>
+        </div>
         <div class="tags"><span>度假村等級</span><span>離札幌較遠</span><span>本趟淘汰</span></div>
         <p class="about">不是雪場不好，而是對你們這次「札幌購物＋滑雪＋溫泉＋函館」來說，住宿／雪票成本較高，還會把行程拉離札幌。尤其你們不是純 Ski Trip。</p>
+      </article>
+
+      <article class="card">
+        <div class="ctitle">
+          <div><h3>二世谷 Niseko United</h3><div class="jp">ニセコユナイテッド</div></div>
+        </div>
+        <div class="card-photos">
+          <div class="card-photos-row">
+            <img src="照片/二世谷/遠眺羊蹄山.jpg" alt="二世谷滑雪場遠眺羊蹄山" loading="lazy">
+            <img src="照片/二世谷/比羅夫指標牌.jpg" alt="二世谷比羅夫滑雪場指標牌與羊蹄山" loading="lazy">
+            <img src="照片/二世谷/停車場雪道.jpg" alt="二世谷滑雪場停車場與雪道纜車" loading="lazy">
+          </div>
+          <figcaption>網路參考照片，非本人拍攝</figcaption>
+        </div>
+        <div class="tags"><span>國際頂級度假村</span><span>離札幌最遠</span><span>本趟淘汰</span></div>
+        <p class="about">風景真的是這幾個裡最好的（羊蹄山這張就知道），但它是「值得整趟旅行都在這裡」的等級，不是能塞進近市區行程的雪場。離札幌車程要 2hr+，跟 Kiroro 一樣的邏輯：住宿雪票都貴，行程又會被拉走，不適合這次以札幌為主的架構。</p>
+      </article>
+
+      <article class="card">
+        <div class="ctitle">
+          <div><h3>留壽都 Rusutsu Resort</h3><div class="jp">ルスツリゾート</div></div>
+        </div>
+        <div class="card-photos">
+          <div class="card-photos-row">
+            <img src="照片/留壽都/霧中纜車.jpg" alt="留壽都滑雪場霧中纜車與雪道" loading="lazy">
+            <img src="照片/留壽都/雪道空拍.jpg" alt="留壽都滑雪場雪道空拍" loading="lazy">
+            <img src="照片/留壽都/度假村全景羊蹄山.jpg" alt="留壽都度假村全景與遠方羊蹄山" loading="lazy">
+          </div>
+          <figcaption>網路參考照片，非本人拍攝</figcaption>
+        </div>
+        <div class="tags"><span>國際頂級度假村</span><span>含樂園設施</span><span>本趟淘汰</span></div>
+        <p class="about">跟二世谷同一個等級：雪場直結飯店、還帶遊樂園，適合當「主要目的地」多住幾天，不是近市區這輪比較的候選。離札幌車程也要 1.5–2hr，一樣會把行程拉離札幌購物的主軸。</p>
       </article>
 
       <article class="card">
@@ -411,6 +523,12 @@
         <div class="ctitle">
           <div><h3>神居 Kamui Ski Links</h3><div class="jp">カムイスキーリンクス</div></div>
         </div>
+        <div class="card-photos">
+          <div class="card-photos-row">
+            <img src="照片/神居/山頂遠眺平原.jpg" alt="神居滑雪場山頂遠眺石狩平原" loading="lazy">
+          </div>
+          <figcaption>網路參考照片，非本人拍攝</figcaption>
+        </div>
         <div class="tags"><span>旭川方向</span><span>另開支線</span><span>本趟淘汰</span></div>
         <p class="about">它在旭川方向，等於又開另一條旅行支線，跟目前札幌＋函館的架構不合。</p>
       </article>
@@ -423,9 +541,6 @@
         <p class="about">不是程度問題，而是它比較值得當「住進大型雪地 Resort」的旅行；你們現在又想天然溫泉、購物，它會吃掉太多時間。</p>
       </article>
 
-    </div>
-
-    </table>
     </div>
 
     <div class="kicker" style="margin-top:34px;"><span class="cat">組合方案</span></div>
@@ -662,6 +777,8 @@
     {name:'札幌國際 Sapporo Kokusai（定山溪）', lat:43.072166, lng:141.082835, note:'候選・組合技型。接駁約1hr；1日券 6,000円；旁邊就是定山溪溫泉鄉', status:'candidate'},
     {name:'朝里川溫泉 Asarigawa Onsen', lat:42.850598, lng:141.094796, note:'候選・組合技型。小樽近郊，緊鄰溫泉鄉', status:'candidate'},
     {name:'喜樂樂 Kiroro Snow World', lat:43.067984, lng:140.988537, note:'本趟淘汰。度假村等級，路過住一晚不划算', status:'out'},
+    {name:'二世谷 Niseko United', lat:42.862067, lng:140.699159, note:'本趟淘汰。國際頂級度假村，離札幌 2hr+，適合多日住不適合路過', status:'out'},
+    {name:'留壽都 Rusutsu Resort', lat:42.751132, lng:140.902485, note:'本趟淘汰。國際頂級度假村＋樂園，離札幌 1.5–2hr，適合當主場多住幾天', status:'out'},
     {name:'二世古藻岩 Niseko Moiwa', lat:42.848039, lng:140.629644, note:'本趟淘汰。交通成本太高，為了滑一天跑二世古不划算（跟札幌市區的藻岩山是不同地方）', status:'out'},
     {name:'神居 Kamui Ski Links（旭川方向）', lat:43.70389, lng:142.18667, note:'本趟淘汰。在旭川方向，等於另開一條旅行支線', status:'out'},
     {name:'星野 TOMAMU Hoshino Resorts', lat:43.063538, lng:142.631364, note:'本趟淘汰。適合當主要度假村多住幾天，不適合路過', status:'out'},
@@ -699,6 +816,56 @@
   var closeCluster = points.filter(function(p){ return !p.far; })
     .map(function(p){ return [p.lat, p.lng]; });
   map.fitBounds(closeCluster, {padding:[28,28]});
+})();
+</script>
+
+<script>
+(function(){
+  var box = document.getElementById('lightbox');
+  var boxImg = document.getElementById('lightboxImg');
+  var closeBtn = document.getElementById('lightboxClose');
+  if (!box || !boxImg) return;
+
+  function openLightbox(img){
+    boxImg.src = img.currentSrc || img.src;
+    boxImg.alt = img.alt || '';
+    box.classList.add('open');
+  }
+  function closeLightbox(){
+    box.classList.remove('open');
+    boxImg.src = '';
+  }
+
+  document.addEventListener('click', function(e){
+    var img = e.target.closest('.card-photos-row img');
+    if (img) { openLightbox(img); return; }
+    if (e.target === box || e.target === closeBtn) { closeLightbox(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeLightbox();
+  });
+})();
+
+(function(){
+  document.querySelectorAll('.card-photos').forEach(function(block){
+    var row = block.querySelector('.card-photos-row');
+    if (!row || row.children.length < 2) return;
+
+    var prev = document.createElement('button');
+    prev.type = 'button'; prev.className = 'photo-nav prev';
+    prev.setAttribute('aria-label', '上一張照片'); prev.textContent = '‹';
+
+    var next = document.createElement('button');
+    next.type = 'button'; next.className = 'photo-nav next';
+    next.setAttribute('aria-label', '下一張照片'); next.textContent = '›';
+
+    block.insertBefore(prev, row);
+    row.insertAdjacentElement('afterend', next);
+
+    function step(){ return Math.max(row.clientWidth * 0.9, 120); }
+    prev.addEventListener('click', function(e){ e.stopPropagation(); row.scrollBy({left: -step(), behavior:'smooth'}); });
+    next.addEventListener('click', function(e){ e.stopPropagation(); row.scrollBy({left: step(), behavior:'smooth'}); });
+  });
 })();
 </script>
 
