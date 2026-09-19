@@ -159,7 +159,8 @@
 
   /* ---------- map ---------- */
   figure.map{margin:0 0 30px;}
-  #ski-map{height:440px;width:100%;border:1px solid var(--line-strong);background:var(--panel);}
+  #ski-map{height:550px;width:75%;border:1px solid var(--line-strong);background:var(--panel);}
+  @media (max-width:760px){ #ski-map{width:100%;} }
   .leaflet-popup-content{font-family:'Archivo',sans-serif;font-size:12.5px;}
   .leaflet-tooltip{font-family:'Archivo',sans-serif;font-size:11.5px;padding:3px 8px;border:none;box-shadow:0 1px 4px rgba(0,0,0,.3);}
   figcaption{font-size:11.5px;color:var(--ink-soft);margin-top:8px;line-height:1.6;}
