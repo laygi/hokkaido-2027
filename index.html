@@ -135,7 +135,14 @@
     border-right:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);
     padding:22px 24px 24px;
     min-width:0;
+    position:relative;
   }
+  .win-stamp{
+    position:absolute;top:10px;right:14px;width:118px;height:auto;
+    color:#a3312f;opacity:.82;transform:rotate(-11deg);
+    mix-blend-mode:multiply;pointer-events:none;z-index:1;
+  }
+  .card.dim-card{opacity:.5;}
   .card .ctitle{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:2px;}
   .card h3{font-size:22px;}
   .card .jp{font-size:12px;color:var(--ink-soft);margin:2px 0 10px;}
@@ -193,12 +200,17 @@
   .checklist ul{margin:0;padding:0;}
 
   /* ---------- itinerary skeleton ---------- */
-  .days{display:grid;grid-template-columns:repeat(7,1fr);border-top:1px solid var(--line-strong);border-left:1px solid var(--line-strong);margin-bottom:10px;}
-  @media (max-width:760px){ .days{grid-template-columns:repeat(2,1fr);} }
-  .day{border-right:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);padding:14px 12px;background:var(--panel);min-height:120px;}
+  .days{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-strong);border-left:1px solid var(--line-strong);margin-bottom:10px;}
+  @media (max-width:900px){ .days{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .days{grid-template-columns:1fr;} }
+  .day{border-right:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);padding:14px 14px 16px;background:var(--panel);min-height:150px;}
   .day .d{font-family:'Space Mono',monospace;font-size:11px;color:var(--ink-soft);}
   .day .city{font-family:'Cormorant Garamond',serif;font-size:20px;margin:4px 0 8px;}
   .day .note{font-size:11.5px;color:var(--ink-soft);line-height:1.5;}
+  .day .steps{position:relative;margin-left:2px;padding-left:14px;font-size:11.5px;color:var(--ink-soft);}
+  .day .steps::before{content:'';position:absolute;left:2px;top:12px;bottom:12px;width:1px;background:var(--line-strong);}
+  .day .steps .step{position:relative;padding:4px 0;line-height:16px;}
+  .day .steps .step::before{content:'';position:absolute;left:-14px;top:9.5px;width:5px;height:5px;border-radius:50%;background:var(--ink-soft);}
 
   /* ---------- empty state ---------- */
   .empty{
@@ -237,13 +249,13 @@
 <header class="masthead">
   <div class="m-row1">
     <div class="left">
-      <div class="label">Hokkaido · 7 Days</div>
+      <div class="label">Hokkaido · 8 Days</div>
       <h1>北海道之旅</h1>
     </div>
     <div class="mid tagline">a winter journey, planned together</div>
     <div class="right">
-      <div class="mono">2027.03.09 — 03.15</div>
-      <div class="label" style="margin-top:2px;">draft v1</div>
+      <div class="mono">2027.03.09 — 03.16</div>
+      <div class="label" style="margin-top:2px;">draft v2</div>
     </div>
   </div>
   <nav class="tabs">
@@ -261,18 +273,18 @@
 </header>
 
 <section class="route">
-  <div class="stop">函館<small>Arrive</small></div>
+  <div class="stop">函館<small>Arrive 3/9</small></div>
   <div class="arrow">→</div>
-  <div class="stop">札幌<small>3/10</small></div>
+  <div class="stop">札幌<small>3/9–3/13</small></div>
   <div class="arrow">→</div>
-  <div class="stop">旭川・美瑛・富良野<small>3/11</small></div>
+  <div class="stop">美瑛・富良野<small>3/11 一日遊</small></div>
   <div class="arrow">→</div>
-  <div class="stop stop-tbd">？<small>待定</small></div>
+  <div class="stop">札幌國際滑雪<small>3/12</small></div>
   <div class="arrow">→</div>
-  <div class="stop">札幌<small>Shopping</small></div>
+  <div class="stop">函館<small>3/14–3/16</small></div>
   <div class="arrow">→</div>
-  <div class="stop">函館 ×2<small>Depart</small></div>
-  <div class="flag">3/12 之後還沒定案，見下方比較</div>
+  <div class="stop">函館 ×2<small>Depart 3/16</small></div>
+  <div class="flag">只剩 3/13 要不要滑第二次雪</div>
 </section>
 
 <main>
@@ -282,7 +294,7 @@
     <h2>這個網站在幫你們決定五件事。</h2>
     <p class="lede">行前準備、地點與行程、食物、購物、滑雪，五個分類對應上面的分頁。每一項現在的狀態都寫在區塊開頭，沒有資料的先留白，不編故事。</p>
     <div class="status-note">
-      <b>現況（2026.09.19）：</b>前三天定案（3/9 函館進、直接去札幌；3/10 札幌；3/11 旭川・美瑛・富良野），但 <b>3/12 之後怎麼排</b>、<b>滑雪要落在哪個雪場</b>和<b>購物排在哪一天</b>都還沒決定。目前最優先在推進的是「滑雪場＋住宿」——這也是這個版本唯一先做完整的分類，其他分類都還是骨架，等你們討論完滑雪再往下填。
+      <b>現況（2026.09.20）：</b>8 天行程幾乎全部定案——3/9 函館進直接去札幌、3/10 札幌市區（北海道神宮／購物）、3/11 美瑛富良野一日遊、3/12 札幌國際滑雪、3/13 札幌自由日、3/14 移動函館、3/15–16 函館收尾回程。唯一還沒定的是 <b>3/13 要不要滑第二次雪</b>。行前準備、食物、購物幾個分類還是骨架，等最後一個小決定出來會一併補齊。
     </div>
   </section>
 
@@ -295,17 +307,13 @@
         <p class="lede">以「台灣先學過基本功、第一次北海道單板、希望新手友善、離市區方便、旅伴不滑雪也要有事做」為基準整理，不是雪場的絕對排名，而是這一趟旅行對你們的適合度。Fu's 最便宜、人潮也最少，但雪道偏短（500m–1.8km）、旅伴在附近沒地方去；手稻、盤溪離市區更近，但少了「住一晚溫泉、滑兩個時段」的可能。</p>
       </div>
       <div class="fit-pick">
-        <div class="fit-pick-name">2 個決選</div>
-        <p class="fit-pick-note"><b>Kokusai×定山溪</b>——雪場本身最強，真正的溫泉鄉。<br><b>朝里川×小樽</b>——CP 值最高、更 local，還能接小樽逛街，但雪場本身規格不如國際／Kiroro／TOMAMU。細節比較見下方組合方案表。</p>
+        <div class="fit-pick-name">✅ 已定案：Kokusai</div>
+        <p class="fit-pick-note">留在札幌滑雪，就是<b>札幌國際</b>。雪場本身最強、緊鄰定山溪溫泉鄉，「住一晚溫泉、滑兩個時段」的方案照走。下面其他雪場都調成淡色，先留著參考、不再是討論重點。</p>
       </div>
     </div>
 
-    <div class="open-q">
-      <div class="label">決定進度（2026.09.19 更新）</div>
-      <ol>
-        <li>有方向了：滑雪不用靠「換雪場」湊兩天，用「雪場＋溫泉住一晚」湊出兩個滑雪時段，手稻可以先不排整天，改用「滑雪＋購物」單日組合。</li>
-        <li>還沒定：是 Kokusai×定山溪 還是 朝里川×小樽——前者雪場更強，後者更便宜更 local 還能逛小樽。Kiroro／TOMAMU 先排除，理由見下方。</li>
-      </ol>
+    <div class="status-note">
+      <b>決定進度（2026.09.20 更新）：</b>滑雪場定案——留在札幌，選<b>札幌國際</b>。手稻／盤溪／藤野是同樣在札幌市區的備選，維持正常顯示；朝里川、Kiroro、二世谷、留壽都、二世古藻岩、神居、TOMAMU 都是札幌以外的雪場，先調成 50% 透明度淡出，不刪掉內容，之後真的要重新考慮還找得到。
     </div>
 
     <div class="kicker" style="margin-top:6px;"><span class="cat">需求清單</span></div>
@@ -335,6 +343,13 @@
     <div class="grid2">
 
 <article class="card">
+        <svg class="win-stamp" viewBox="0 0 220 130" role="img" aria-label="勝出印章">
+          <ellipse cx="110" cy="65" rx="98" ry="52" fill="none" stroke="currentColor" stroke-width="4"/>
+          <ellipse cx="110" cy="65" rx="86" ry="42" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="110" y="40" text-anchor="middle" font-family="'Archivo',sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="currentColor">SAPPORO KOKUSAI</text>
+          <text x="110" y="82" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="700" font-size="38" fill="currentColor">勝出</text>
+          <text x="110" y="103" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" letter-spacing="3" fill="currentColor">★ 2027.3 ★</text>
+        </svg>
         <div class="ctitle">
           <div><h3>札幌國際 Sapporo Kokusai</h3><div class="jp">札幌国際スキー場</div></div>
           <div class="hearts"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg></div>
@@ -359,7 +374,7 @@
         <div class="fit-note"><b>旅伴同步</b>就在定山溪溫泉鄉旁——泡湯、足湯、溪谷觀景、甜點咖啡店都在車程 10 分內，是四個候選裡對不滑雪的人最友善的一個。</div>
       </article>
 
-      <article class="card">
+      <article class="card dim-card">
         <div class="ctitle">
           <div><h3>朝里川溫泉 Asarigawa Onsen</h3><div class="jp">朝里川温泉スキー場</div></div>
           <div class="hearts"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" style="opacity:.32"><path fill="currentColor" d="M12 21s-6.7-4.32-9.3-8.16C1.02 10.2 1.6 6.86 4.42 5.36c2.2-1.18 4.6-.5 6 1.18L12 8.1l1.58-1.56c1.4-1.68 3.8-2.36 6-1.18 2.82 1.5 3.4 4.84 1.72 7.68C18.7 16.68 12 21 12 21z"/></svg></div>
@@ -469,7 +484,7 @@
     <p class="lede">不是雪場不好，是跟這趟「札幌購物＋滑雪＋溫泉＋函館」的架構不合，先記下原因，不用每次重新想一次。</p>
     <div class="grid2">
 
-      <article class="card">
+      <article class="card dim-card">
         <div class="ctitle">
           <div><h3>喜樂樂 Kiroro Snow World</h3><div class="jp">キロロリゾート</div></div>
         </div>
@@ -483,7 +498,7 @@
         <p class="about">不是雪場不好，而是對你們這次「札幌購物＋滑雪＋溫泉＋函館」來說，住宿／雪票成本較高，還會把行程拉離札幌。尤其你們不是純 Ski Trip。</p>
       </article>
 
-      <article class="card">
+      <article class="card dim-card">
         <div class="ctitle">
           <div><h3>二世谷 Niseko United</h3><div class="jp">ニセコユナイテッド</div></div>
         </div>
@@ -499,7 +514,7 @@
         <p class="about">風景真的是這幾個裡最好的（羊蹄山這張就知道），但它是「值得整趟旅行都在這裡」的等級，不是能塞進近市區行程的雪場。離札幌車程要 2hr+，跟 Kiroro 一樣的邏輯：住宿雪票都貴，行程又會被拉走，不適合這次以札幌為主的架構。</p>
       </article>
 
-      <article class="card">
+      <article class="card dim-card">
         <div class="ctitle">
           <div><h3>留壽都 Rusutsu Resort</h3><div class="jp">ルスツリゾート</div></div>
         </div>
@@ -515,7 +530,7 @@
         <p class="about">跟二世谷同一個等級：雪場直結飯店、還帶遊樂園，適合當「主要目的地」多住幾天，不是近市區這輪比較的候選。離札幌車程也要 1.5–2hr，一樣會把行程拉離札幌購物的主軸。</p>
       </article>
 
-      <article class="card">
+      <article class="card dim-card">
         <div class="ctitle">
           <div><h3>二世古藻岩 Niseko Moiwa</h3><div class="jp">ニセコモイワスキーリゾート</div></div>
         </div>
@@ -523,7 +538,7 @@
         <p class="about">雪場其實可能適合你，但從札幌基地過去交通成本太高；為了滑一天跑二世古不划算。<br><b style="font-weight:600;">注意</b>這裡的「藻岩」跟札幌市區的藻岩山（夜景纜車）是兩個完全不同的地方，只是剛好同名——「モイワ」在阿伊努語裡就是「小山」的意思，北海道好幾個地方都用這個名字。</p>
       </article>
 
-      <article class="card">
+      <article class="card dim-card">
         <div class="ctitle">
           <div><h3>神居 Kamui Ski Links</h3><div class="jp">カムイスキーリンクス</div></div>
         </div>
@@ -537,7 +552,7 @@
         <p class="about">它在旭川方向，等於又開另一條旅行支線，跟目前札幌＋函館的架構不合。</p>
       </article>
 
-      <article class="card">
+      <article class="card dim-card">
         <div class="ctitle">
           <div><h3>星野 TOMAMU Hoshino Resorts TOMAMU</h3><div class="jp">星野リゾート トマム</div></div>
         </div>
@@ -678,9 +693,9 @@
     <p class="lede">還沒開始，先列大項當骨架。等滑雪＋住宿定案，這裡會展開成真正的 checklist 頁面。</p>
     <ul class="checklist">
       <li><input type="checkbox" id="p1"><label for="p1">機票／航班</label></li>
-      <li><input type="checkbox" id="p2"><label for="p2">札幌↔滑雪地點交通方式：地點定案後再抓 JR 或租車的時間跟費用</label></li>
+      <li><input type="checkbox" id="p2"><label for="p2">3/11 美瑛富良野一日遊交通方式（包車／一日遊團／自駕）；3/12 札幌↔札幌國際的接駁時間</label></li>
       <li><input type="checkbox" id="p3"><label for="p3">雪具租借預約（單板、雪衣雪褲、雪鏡手套）——看落在哪個雪場再訂</label></li>
-      <li><input type="checkbox" id="p4"><label for="p4">住宿預訂——等「跟雪場走 vs 全程住市區」決定後才能訂</label></li>
+      <li><input type="checkbox" id="p4"><label for="p4">住宿預訂——全程住札幌市區＋函館兩晚，可以開始訂了</label></li>
       <li><input type="checkbox" id="p5"><label for="p5">海外旅平險</label></li>
       <li><input type="checkbox" id="p6"><label for="p6">網路：eSIM 或機場租 WiFi 機</label></li>
       <li><input type="checkbox" id="p7"><label for="p7">保暖衣物清單（3 月北海道日夜溫差大）</label></li>
@@ -692,17 +707,18 @@
   <section class="chapter" data-cat="place">
     <div class="kicker"><span class="num">03</span><span class="cat">Place · Itinerary</span></div>
     <h2>行程排程與地點</h2>
-    <p class="lede">7 天的城市骨架先卡好，但每天實際去哪個景點還沒填——要等滑雪天數定案才知道剩幾天可以排市區行程。</p>
+    <p class="lede">8 天行程，2026.09.20 更新——除了 3/13 要不要滑第二次雪，其他天基本定案。</p>
     <div class="days">
-      <div class="day"><div class="d">D1 · 3/9</div><div class="city">函館→札幌</div><div class="note">抵達函館，直接轉往札幌，當天不排景點</div></div>
-      <div class="day"><div class="d">D2 · 3/10</div><div class="city">🏙️ 札幌</div><div class="note">待補</div></div>
-      <div class="day"><div class="d">D3 · 3/11</div><div class="city">🐧 旭川・美瑛・富良野</div><div class="note">新增，一日遊，從札幌進出、當天不過夜。神居還是先維持淘汰——雖然順路經過旭川方向，但這天已經排滿旭川／美瑛／富良野的行程，沒有多餘時間再排一場滑雪</div></div>
-      <div class="day"><div class="d">D4</div><div class="city">滑雪？</div><div class="note">3/11 晚上會回到札幌，D4 從札幌出發滑雪（地點見「滑雪場＋住宿」分頁），還沒定案</div></div>
-      <div class="day"><div class="d">D5</div><div class="city">札幌</div><div class="note">購物（暫定，也可能挪到 D2）</div></div>
-      <div class="day"><div class="d">D6</div><div class="city">函館</div><div class="note">回程第 1 天</div></div>
-      <div class="day"><div class="d">D7 · 3/15</div><div class="city">函館</div><div class="note">回程第 2 天，可安排七飯滑雪一日遊</div></div>
+      <div class="day"><div class="d">D1 · 3/9 Tue</div><div class="city">✈️ 函館→札幌</div><div class="note"><div class="steps"><div class="step">函館機場</div><div class="step">札幌 Sapporo（JR）</div><div class="step">Check-in</div><div class="step">晚餐／附近逛街</div></div></div></div>
+      <div class="day"><div class="d">D2 · 3/10 Wed</div><div class="city">⛩️ 札幌市區</div><div class="note"><div class="steps"><div class="step">北海道神宮 Hokkaido Jingu</div><div class="step">圓山</div><div class="step">札幌市區</div><div class="step">PARCO／狸小路／札幌站購物</div></div></div></div>
+      <div class="day"><div class="d">D3 · 3/11 Thu</div><div class="city">❄️ 美瑛・富良野</div><div class="note">美瑛 Biei＋富良野 Furano 冬季一日遊，從札幌進出、當天不過夜｜白鬚瀑布、雪景、精靈露台等</div></div>
+      <div class="day"><div class="d">D4 · 3/12 Fri</div><div class="city">🏂 札幌國際滑雪</div><div class="note">Sapporo Kokusai Ski Resort｜滑雪＋教練</div></div>
+      <div class="day"><div class="d">D5 · 3/13 Sat</div><div class="city">🛍️ 札幌自由日</div><div class="note">逛街喝咖啡；體力好可以考慮第二次滑雪（還沒定）</div></div>
+      <div class="day"><div class="d">D6 · 3/14 Sun</div><div class="city">🚄 札幌→函館</div><div class="note"><div class="steps"><div class="step">札幌</div><div class="step">函館 Hakodate（JR）</div></div></div></div>
+      <div class="day"><div class="d">D7 · 3/15 Mon</div><div class="city">🏙️ 函館完整日</div><div class="note">元町、八幡坂、教堂、紅磚倉庫、函館山等</div></div>
+      <div class="day"><div class="d">D8 · 3/16 Tue</div><div class="city">✈️ 函館→機場</div><div class="note"><div class="steps"><div class="step">函館</div><div class="step">函館機場，賦歸</div></div></div></div>
     </div>
-    <p class="lede" style="margin-top:14px;">上面是概念順序，不是定案的每日行程——等 01 的兩個決定出來，這張表會重排。</p>
+    <p class="lede" style="margin-top:14px;">滑雪場已定案（札幌國際，見「滑雪場＋住宿」分頁），行前準備裡的「教練 vs 不需教練」需求要跟著更新一下——目前這張表寫的是有教練。</p>
   </section>
 
   <!-- ===================== FOOD ===================== -->
@@ -716,7 +732,7 @@
   <section class="chapter" data-cat="shop">
     <div class="kicker"><span class="num">05</span><span class="cat">Shop</span></div>
     <h2>購物</h2>
-    <div class="empty">尚未整理。核心問題：購物排在「去滑雪之前」還是「回程再回札幌買」——這會直接影響住宿要不要在札幌訂兩段。等 01 討論完滑雪安排，一併決定。</div>
+    <div class="empty">大方向定了：3/10（PARCO／狸小路／札幌站）跟 3/13 自由日各排一輪札幌購物，滑雪（3/12）夾在中間。還沒列的是每個點具體要去哪幾間店、買什麼——這塊之後再補。</div>
   </section>
 
 </main>
