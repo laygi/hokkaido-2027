@@ -156,6 +156,7 @@
   .photo-nav.next{right:6px;}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
   .tags span{font-size:10px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line-strong);padding:3px 8px;color:var(--ink-soft);}
+  .tags span.cat-tag{background:var(--ink);border-color:var(--ink);color:var(--panel);font-weight:600;}
   .card p.about{font-size:13px;line-height:1.75;margin:0 0 14px;color:var(--ink);}
   .meta{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:12.5px;}
   .meta dt{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;padding-top:1px;}
@@ -262,14 +263,16 @@
 <section class="route">
   <div class="stop">函館<small>Arrive</small></div>
   <div class="arrow">→</div>
-  <div class="stop">札幌<small>Sapporo</small></div>
+  <div class="stop">札幌<small>3/10</small></div>
   <div class="arrow">→</div>
-  <div class="stop stop-tbd">滑雪<small>待定</small></div>
+  <div class="stop">旭川・美瑛・富良野<small>3/11</small></div>
+  <div class="arrow">→</div>
+  <div class="stop stop-tbd">？<small>待定</small></div>
   <div class="arrow">→</div>
   <div class="stop">札幌<small>Shopping</small></div>
   <div class="arrow">→</div>
   <div class="stop">函館 ×2<small>Depart</small></div>
-  <div class="flag">滑雪地點還沒定案，見下方比較</div>
+  <div class="flag">3/12 之後還沒定案，見下方比較</div>
 </section>
 
 <main>
@@ -279,7 +282,7 @@
     <h2>這個網站在幫你們決定五件事。</h2>
     <p class="lede">行前準備、地點與行程、食物、購物、滑雪，五個分類對應上面的分頁。每一項現在的狀態都寫在區塊開頭，沒有資料的先留白，不編故事。</p>
     <div class="status-note">
-      <b>現況（2026.09.19）：</b>路線大致定案（函館進、直接去札幌、中間滑雪、札幌購物、函館收兩天回程），但<b>滑雪地點</b>和<b>購物排在哪一天</b>還沒決定。目前最優先在推進的是「滑雪場＋住宿」——這也是這個版本唯一先做完整的分類，其他分類都還是骨架，等你們討論完滑雪再往下填。
+      <b>現況（2026.09.19）：</b>前三天定案（3/9 函館進、直接去札幌；3/10 札幌；3/11 旭川・美瑛・富良野），但 <b>3/12 之後怎麼排</b>、<b>滑雪要落在哪個雪場</b>和<b>購物排在哪一天</b>都還沒決定。目前最優先在推進的是「滑雪場＋住宿」——這也是這個版本唯一先做完整的分類，其他分類都還是骨架，等你們討論完滑雪再往下填。
     </div>
   </section>
 
@@ -318,6 +321,7 @@
     <figure class="map">
       <div id="ski-map"></div>
       <div class="map-legend">
+        <span><i style="background:#b23b3b;"></i>首選（Kokusai／朝里川）</span>
         <span><i style="background:#33465a;"></i>候選雪場</span>
         <span><i style="background:#7a5230;"></i>本趟淘汰</span>
         <span><i style="background:#6d7f8f;"></i>參考點（車站／城市）</span>
@@ -343,7 +347,7 @@
           </div>
           <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
-        <div class="tags"><span>新手長雪道</span><span>單板 OK</span><span>札幌日歸</span></div>
+        <div class="tags"><span class="cat-tag">溫泉區＋雪場</span><span class="cat-tag">L 中大型</span><span>新手長雪道</span><span>單板 OK</span><span>札幌日歸</span></div>
         <p class="about">最適合當北海道第一個正式滑雪日。Forest 1.2km 與 Märchen 2.4km 都是初級道，平均坡度 8°；可串成最長約 3.6km 的長距離滑行。對「已經會煞車、落葉飄／基本轉彎，想把時間拿來玩」特別合適。</p>
         <dl class="meta">
           <dt>Location</dt><dd>札幌市南區定山溪</dd>
@@ -368,7 +372,7 @@
           </div>
           <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
-        <div class="tags"><span>CP 值最高</span><span>天然溫泉</span><span>小樽順路</span></div>
+        <div class="tags"><span class="cat-tag">溫泉區＋雪場</span><span class="cat-tag">M 中型</span><span>CP 值最高</span><span>天然溫泉</span><span>小樽順路</span></div>
         <p class="about">小樽近郊、小樽唯一的溫泉區，滑雪場緊鄰朝里川溫泉鄉；9 條雪道，部分雪道能看到海景。規模不如札幌國際或 Kiroro，但地緣優勢是能把「小樽逛街＋天然溫泉＋滑雪」串成一條線，一趟解決兩件事。</p>
         <dl class="meta">
           <dt>Location</dt><dd>北海道小樽市朝里川溫泉</dd>
@@ -400,7 +404,7 @@
           </div>
           <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
-        <div class="tags"><span>Olympia 新手區</span><span>景色好</span><span>可接 AEON 購物</span></div>
+        <div class="tags"><span class="cat-tag">札幌市區</span><span class="cat-tag">XL 大型</span><span>Olympia 新手區</span><span>景色好</span><span>可接 AEON 購物</span></div>
         <p class="about">很適合第二個滑雪日。Olympia Zone 有較緩的初級坡；Highland 則能在之後能力變強時繼續玩。官方單板 Level 3 的定義就是能在簡單雪道 heel↔toe 連續轉彎，剛好可以拿台灣學習成果來判斷是否合適。</p>
         <dl class="meta">
           <dt>Location</dt><dd>札幌西側・手稻山</dd>
@@ -424,7 +428,7 @@
           </div>
           <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
-        <div class="tags"><span>Local</span><span>觀光客較少</span><span>價格親民</span></div>
+        <div class="tags"><span class="cat-tag">札幌市區</span><span class="cat-tag">S 小～中型</span><span>Local</span><span>觀光客較少</span><span>價格親民</span></div>
         <p class="about">如果你最在意「不要滿滿觀光客」，Fu's 很值得留著。札幌官方把它形容為當地人的私房雪場，距市中心開車約 30 分；Family Course 為初級 500m，Mild Course 為初／中級 1.8km。</p>
         <dl class="meta">
           <dt>Location</dt><dd>札幌市南區藤野</dd>
@@ -447,7 +451,7 @@
           </div>
           <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
-        <div class="tags"><span>市區超近</span><span>半日滑</span><span>夜滑</span></div>
+        <div class="tags"><span class="cat-tag">札幌市區</span><span class="cat-tag">S 小～中型</span><span>市區超近</span><span>半日滑</span><span>夜滑</span></div>
         <p class="about">優勢不是「最漂亮的大雪場」，而是超級方便。從札幌站開車官方估約 20 分鐘，也有市區巴士；札幌觀光官方明確提到有適合家庭與初學者的緩坡。很適合購物日切半天滑一下。</p>
         <dl class="meta">
           <dt>Location</dt><dd>札幌市中央區盤溪</dd>
@@ -475,7 +479,7 @@
           </div>
           <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
-        <div class="tags"><span>度假村等級</span><span>離札幌較遠</span><span>本趟淘汰</span></div>
+        <div class="tags"><span class="cat-tag">大型度假村</span><span class="cat-tag">XL 大型</span><span>度假村等級</span><span>離札幌較遠</span><span>本趟淘汰</span></div>
         <p class="about">不是雪場不好，而是對你們這次「札幌購物＋滑雪＋溫泉＋函館」來說，住宿／雪票成本較高，還會把行程拉離札幌。尤其你們不是純 Ski Trip。</p>
       </article>
 
@@ -491,7 +495,7 @@
           </div>
           <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
-        <div class="tags"><span>國際頂級度假村</span><span>離札幌最遠</span><span>本趟淘汰</span></div>
+        <div class="tags"><span class="cat-tag">大型度假村</span><span>國際頂級度假村</span><span>離札幌最遠</span><span>本趟淘汰</span></div>
         <p class="about">風景真的是這幾個裡最好的（羊蹄山這張就知道），但它是「值得整趟旅行都在這裡」的等級，不是能塞進近市區行程的雪場。離札幌車程要 2hr+，跟 Kiroro 一樣的邏輯：住宿雪票都貴，行程又會被拉走，不適合這次以札幌為主的架構。</p>
       </article>
 
@@ -507,7 +511,7 @@
           </div>
           <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
-        <div class="tags"><span>國際頂級度假村</span><span>含樂園設施</span><span>本趟淘汰</span></div>
+        <div class="tags"><span class="cat-tag">大型度假村</span><span class="cat-tag">XXL 超大型</span><span>國際頂級度假村</span><span>含樂園設施</span><span>本趟淘汰</span></div>
         <p class="about">跟二世谷同一個等級：雪場直結飯店、還帶遊樂園，適合當「主要目的地」多住幾天，不是近市區這輪比較的候選。離札幌車程也要 1.5–2hr，一樣會把行程拉離札幌購物的主軸。</p>
       </article>
 
@@ -515,7 +519,7 @@
         <div class="ctitle">
           <div><h3>二世古藻岩 Niseko Moiwa</h3><div class="jp">ニセコモイワスキーリゾート</div></div>
         </div>
-        <div class="tags"><span>二世古雪質</span><span>交通成本高</span><span>本趟淘汰</span></div>
+        <div class="tags"><span class="cat-tag">偏遠但很棒</span><span class="cat-tag">M 中型</span><span>二世古雪質</span><span>交通成本高</span><span>本趟淘汰</span></div>
         <p class="about">雪場其實可能適合你，但從札幌基地過去交通成本太高；為了滑一天跑二世古不划算。<br><b style="font-weight:600;">注意</b>這裡的「藻岩」跟札幌市區的藻岩山（夜景纜車）是兩個完全不同的地方，只是剛好同名——「モイワ」在阿伊努語裡就是「小山」的意思，北海道好幾個地方都用這個名字。</p>
       </article>
 
@@ -529,7 +533,7 @@
           </div>
           <figcaption>網路參考照片，非本人拍攝</figcaption>
         </div>
-        <div class="tags"><span>旭川方向</span><span>另開支線</span><span>本趟淘汰</span></div>
+        <div class="tags"><span class="cat-tag">偏遠但很棒</span><span class="cat-tag">L 中大型</span><span>旭川方向</span><span>另開支線</span><span>本趟淘汰</span></div>
         <p class="about">它在旭川方向，等於又開另一條旅行支線，跟目前札幌＋函館的架構不合。</p>
       </article>
 
@@ -537,7 +541,7 @@
         <div class="ctitle">
           <div><h3>星野 TOMAMU Hoshino Resorts TOMAMU</h3><div class="jp">星野リゾート トマム</div></div>
         </div>
-        <div class="tags"><span>大型度假村</span><span>適合多日住宿</span><span>本趟淘汰</span></div>
+        <div class="tags"><span class="cat-tag">大型度假村</span><span class="cat-tag">XXL 超大型</span><span>適合多日住宿</span><span>本趟淘汰</span></div>
         <p class="about">不是程度問題，而是它比較值得當「住進大型雪地 Resort」的旅行；你們現在又想天然溫泉、購物，它會吃掉太多時間。</p>
       </article>
 
@@ -690,10 +694,10 @@
     <h2>行程排程與地點</h2>
     <p class="lede">7 天的城市骨架先卡好，但每天實際去哪個景點還沒填——要等滑雪天數定案才知道剩幾天可以排市區行程。</p>
     <div class="days">
-      <div class="day"><div class="d">D1 · 3/9</div><div class="city">函館</div><div class="note">抵達，直接轉往札幌，當天不排景點</div></div>
-      <div class="day"><div class="d">D2</div><div class="city">札幌</div><div class="note">待補</div></div>
-      <div class="day"><div class="d">D3</div><div class="city">札幌／滑雪？</div><div class="note">滑雪天數與地點都待定，可能從這天開始</div></div>
-      <div class="day"><div class="d">D4</div><div class="city">滑雪？</div><div class="note">滑雪（地點見「滑雪場＋住宿」分頁）</div></div>
+      <div class="day"><div class="d">D1 · 3/9</div><div class="city">函館→札幌</div><div class="note">抵達函館，直接轉往札幌，當天不排景點</div></div>
+      <div class="day"><div class="d">D2 · 3/10</div><div class="city">🏙️ 札幌</div><div class="note">待補</div></div>
+      <div class="day"><div class="d">D3 · 3/11</div><div class="city">🐧 旭川・美瑛・富良野</div><div class="note">新增，一日遊，從札幌進出、當天不過夜。神居還是先維持淘汰——雖然順路經過旭川方向，但這天已經排滿旭川／美瑛／富良野的行程，沒有多餘時間再排一場滑雪</div></div>
+      <div class="day"><div class="d">D4</div><div class="city">滑雪？</div><div class="note">3/11 晚上會回到札幌，D4 從札幌出發滑雪（地點見「滑雪場＋住宿」分頁），還沒定案</div></div>
       <div class="day"><div class="d">D5</div><div class="city">札幌</div><div class="note">購物（暫定，也可能挪到 D2）</div></div>
       <div class="day"><div class="d">D6</div><div class="city">函館</div><div class="note">回程第 1 天</div></div>
       <div class="day"><div class="d">D7 · 3/15</div><div class="city">函館</div><div class="note">回程第 2 天，可安排七飯滑雪一日遊</div></div>
@@ -774,8 +778,8 @@
     {name:'札幌手稻 Sapporo Teine', lat:43.096056, lng:141.209677, note:'候選・市內型。JR＋巴士約30–45分；官網查到 1 日券 8,200円', status:'candidate'},
     {name:'札幌盤溪 Sapporo Bankei', lat:43.0305, lng:141.278011, note:'候選・市內型。車程約20分・市區最近；1日券 7,000円', status:'candidate'},
     {name:"札幌藤野 Fu's Snow Area", lat:42.95444, lng:141.27861, note:'候選・市內型。車程約30分；1日券 3,300円（最便宜）', status:'candidate'},
-    {name:'札幌國際 Sapporo Kokusai（定山溪）', lat:43.072166, lng:141.082835, note:'候選・組合技型。接駁約1hr；1日券 6,000円；旁邊就是定山溪溫泉鄉', status:'candidate'},
-    {name:'朝里川溫泉 Asarigawa Onsen', lat:42.850598, lng:141.094796, note:'候選・組合技型。小樽近郊，緊鄰溫泉鄉', status:'candidate'},
+    {name:'札幌國際 Sapporo Kokusai（定山溪）', lat:43.07222, lng:141.08278, note:'首選・組合技型。接駁約1hr；1日券 6,000円；旁邊就是定山溪溫泉鄉', status:'top'},
+    {name:'朝里川溫泉 Asarigawa Onsen', lat:43.143611, lng:141.036667, note:'首選・組合技型。小樽近郊約15分，緊鄰溫泉鄉（座標已修正，原本誤植在南方約32公里處）', status:'top'},
     {name:'喜樂樂 Kiroro Snow World', lat:43.067984, lng:140.988537, note:'本趟淘汰。度假村等級，路過住一晚不划算', status:'out'},
     {name:'二世谷 Niseko United', lat:42.862067, lng:140.699159, note:'本趟淘汰。國際頂級度假村，離札幌 2hr+，適合多日住不適合路過', status:'out'},
     {name:'留壽都 Rusutsu Resort', lat:42.751132, lng:140.902485, note:'本趟淘汰。國際頂級度假村＋樂園，離札幌 1.5–2hr，適合當主場多住幾天', status:'out'},
@@ -787,8 +791,8 @@
     {name:'函館 Hakodate（回程）', lat:41.7738, lng:140.7261, note:'新幹線約1hr40分', status:'ref', far:true}
   ];
 
-  var COLORS = { candidate:'#33465a', out:'#7a5230', ref:'#6d7f8f' };
-  var SIZES = { candidate:20, out:15, ref:11 };
+  var COLORS = { top:'#b23b3b', candidate:'#33465a', out:'#7a5230', ref:'#6d7f8f' };
+  var SIZES = { top:22, candidate:20, out:15, ref:11 };
   function dotIcon(status){
     var size = SIZES[status];
     return L.divIcon({
